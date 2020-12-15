@@ -1,4 +1,5 @@
-const getNotes=require('./getNote')
-module.exports={
-  getNotes
-}
+const getNotes = require('./getNote');
+
+module.exports = {
+  getNotes,
+};
