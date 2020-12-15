@@ -1,8 +1,9 @@
-const dbConnection=require('../config/connection')
+const dbConnection = require('../config/connection');
 
-module.exports= getNotes = () => {
+const getNotes = (userID) => {
   const sql = {
-    text: "SELECT * FROM notes;",
+    text: `SELECT * FROM notes where userID = ${userID};`,
   };
   return dbConnection.query(sql);
 };
+module.exports = { getNotes };
