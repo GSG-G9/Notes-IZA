@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest"
+    "start":"node server/index.js",
+    "test": "jest",
+    "dev" : "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
