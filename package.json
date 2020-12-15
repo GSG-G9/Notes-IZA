@@ -1,0 +1,39 @@
+{
+  "name": "notes-iza",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GSG-G9/Notes-IZA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GSG-G9/Notes-IZA/issues"
+  },
+  "homepage": "https://github.com/GSG-G9/Notes-IZA#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "env2": "^2.2.2",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
+  }
+}
