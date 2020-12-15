@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <title>Notes</title>
   </head>
   <body>
     <div class="container" id="container">
-      <h2>log in first to start writing notes!!</h2>
       <div class="loggin-container" id="loggin-container">
+        <h2>Log in first to start writing notes!!</h2>
         <form class="loggin" id="loggin" method="POST" action="/log-in">
           <input
             type="text"
@@ -28,23 +28,20 @@
             id="user-password"
           />
           <button type="submit" class="log-in" id="log-in" name="log-in">
-            log in
+            Log in
+          </button>
+          <button type="button" class="signing" id="signing" name="signing">
+            Don't have an account?
           </button>
         </form>
       </div>
-      <div>
-        <p>don't have an account?</p>
-        <button type="button" class="signing" id="signing" name="signing">
-          create account
-        </button>
-      </div>
 
-      <div>
+      <div class="signup-container">
         <form class="sign-up" id="sign-up" method="POST" action="/sign-up">
           <input
             type="text"
             name="name"
-            placeholder="email"
+            placeholder="username"
             autocomplete="off"
             class="user-info"
             id="name"
@@ -68,7 +65,7 @@
           <input
             type="text"
             name="confirmed-password"
-            placeholder="confirmed-password"
+            placeholder="confirm password"
             autocomplete="off"
             class="user-info"
             id="confirmed-password"
@@ -78,7 +75,7 @@
             name="bio"
             placeholder="bio"
             autocomplete="off"
-            class="user-info"
+            class="user-bio"
             id="bio"
           />
           <button

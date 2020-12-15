@@ -1,0 +1,64 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 17px;
+  font-family:sans-serif;
+}
+
+html{
+  height: 100vh;
+  width: 100vw;
+  background-color:whitesmoke;
+  color: rgb(7, 7, 7);
+}
+
+
+.loggin-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+
+h2{
+  margin: 30px;
+  font-size: 1.3rem;
+  text-align: center;
+  flex-grow: 0.3;
+}
+
+.loggin{
+  display: flex;
+  flex-direction: column;
+  width: min(400px, 100% - 2vw);
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.signing{
+  background: transparent;
+  border: none;
+  color:rgb(40, 40, 117);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.signup-container{
+  display: none;
+}
+
+input{
+  padding: 16px 32px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 2px 0.5px #ddd4d4;
+  font-size: 18px;
+}
+
+.log-in{
+  padding: 15px 25px;
+  border-radius: 10px;
+  border-width: 0.1px;
+  font-weight: 700;
+}
