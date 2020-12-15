@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <h2>log in first to start writing notes!!</h2>
+      <div class="loggin-container" id="loggin-container">
+        <form class="loggin" id="loggin" method="POST" action="/log-in">
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            autocomplete="off"
+            class="user-email"
+            id="user-email"
+          />
+          <input
+            type="text"
+            name="password"
+            placeholder="password"
+            autocomplete="off"
+            class="user-password"
+            id="user-password"
+          />
+          <button type="submit" class="log-in" id="log-in" name="log-in">
+            log in
+          </button>
+        </form>
+      </div>
+      <div>
+        <p>don't have an account?</p>
+        <button type="button" class="signing" id="signing" name="signing">
+          create account
+        </button>
+      </div>
+
+      <div>
+        <form class="sign-up" id="sign-up" method="POST" action="/sign-up">
+          <input
+            type="text"
+            name="name"
+            placeholder="email"
+            autocomplete="off"
+            class="user-info"
+            id="name"
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            autocomplete="off"
+            class="user-info"
+            id="email"
+          />
+          <input
+            type="text"
+            name="password"
+            placeholder="password"
+            autocomplete="off"
+            class="user-info"
+            id="password"
+          />
+          <input
+            type="text"
+            name="confirmed-password"
+            placeholder="confirmed-password"
+            autocomplete="off"
+            class="user-info"
+            id="confirmed-password"
+          />
+          <input
+            type="text"
+            name="bio"
+            placeholder="bio"
+            autocomplete="off"
+            class="user-info"
+            id="bio"
+          />
+          <button
+            type="submit"
+            class="create-account"
+            id="create-account"
+            name="create-account"
+          >
+            sign up
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
