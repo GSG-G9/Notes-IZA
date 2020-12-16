@@ -15,7 +15,7 @@ html{
 
 .loggin-container{
   height: 100vh;
-  display: none;
+  display: flex;
   flex-direction: column;
   width: 100vw;
 }
@@ -52,7 +52,7 @@ h2{
 }
 
 .signup-container{
-  display: flex;
+  display: none;
   flex-direction: column;
   margin: 50px;
 }

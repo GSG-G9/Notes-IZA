@@ -104,6 +104,11 @@ router.post('/sign-up', (req, res) => {
   }
 });
 
+// logout route
+router.post('/logout', (req, res) => {
+  res.clearCookie().redirect('/');
+});
+
 // error handling
 router.use((err, req, res, next) => {
   console.log(err);
