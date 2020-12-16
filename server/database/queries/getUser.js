@@ -1,9 +1,9 @@
 const dbConnection = require('../config/connection');
 
-const getUser = (email, password) => {
+const getUser = (email) => {
   const sql = {
-    text: 'SELECT * FROM users where email = $1 and password = $2 ;',
-    values: [email, password],
+    text: 'SELECT * FROM users where email = $1 ;',
+    values: [email],
   };
   return dbConnection.query(sql);
 };
