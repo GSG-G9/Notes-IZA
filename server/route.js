@@ -118,8 +118,8 @@ router.post('/sign-up', (req, res) => {
 });
 
 // logout route
-router.post('/logout', (req, res) => {
-  res.clearCookie().redirect('/');
+router.get('/logout', (req, res) => {
+  res.clearCookie('token').redirect('/');
 });
 
 // error handling
