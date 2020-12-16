@@ -1,14 +1,24 @@
 /* eslint-disable no-console */
 const router = require('express').Router();
+const { join } = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
+
+const { readFile } = require('fs');
 const { getNotes } = require('./database/queries/getNote');
 const { addNote } = require('./database/queries/addNote');
 const { getUser } = require('./database/queries/getUser');
 const { addUser } = require('./database/queries/addUser');
 const { getHashedPassword } = require('./database/queries/getHashedPassword');
 
+const { SECRET_KEY } = process.env;
+const jwtString = (payload, SECRET_KEY) => new Promise((resolve, reject) => {
+  jwt.sign(payload, SECRET_KEY, (err, token) => {
+    if (err) return reject(err);
+    return resolve(token);
+  });
+});
 // get notes for each user
 router.get('/notes/:userID', (req, res, next) => {
   getNotes(req.params.userID)
@@ -22,25 +32,29 @@ router.get('/notes/:userID', (req, res, next) => {
 module.exports = router;
 
 // add note
-router.post('/addNote/:userID', (req, res, next) => {
-  console.log(req.body);
-  addNote(req.body.header, req.body.content, req.params.userID)
-    .then(({ rows }) => res.status(200).json({
-      data: rows,
-      msg: 'success',
-      status: 200,
-    })).catch(next);
+/* router.get('/note', (req, res, next) => {
+  res.send(readFile(join(__dirname, '..', '..', 'public', 'main.html')));
+}); */
+const varifyToken = (req, res, next) => {
+  jwt.verify(req.cookies.token, process.env.SECRET_KEY, (err, decoded) => {
+    if (err) {
+      res.status(401).json({ msg: 'No authorize' });
+    } else {
+      req.userID = decoded.userID;
+      next();
+    }
+  });
+};
+
+router.post('/notes', varifyToken, (req, res, next) => {
+  addNote(req.body.header, req.body.content, req.userID)
+    .then(() => res.redirect('/main.html')).catch(next);
 });
 
 // login route
-const { SECRET_KEY } = process.env;
-const jwtString = (payload, SECRET_KEY) => new Promise((resolve, reject) => {
-  jwt.sign(payload, SECRET_KEY, (err, token) => {
-    if (err) return reject(err);
-    return resolve(token);
-  });
-});
+
 router.post('/login', (req, res, next) => {
+  let userID;
   const { email, password } = req.body;
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -52,6 +66,7 @@ router.post('/login', (req, res, next) => {
       if (resData.rowCount === 0) {
         throw new Error('email not found');
       } else {
+        userID = resData.rows[0].id;
         return getHashedPassword(resData.rows[0].email);
       }
     }).then((resUserPassword) => bcrypt.compare(password, resUserPassword.rows[0].password))
@@ -59,11 +74,10 @@ router.post('/login', (req, res, next) => {
         if (!success) {
           throw new Error('bad request');
         }
-        return jwtString({ email }, process.env.SECRET_KEY);
+        return jwtString({ userID }, process.env.SECRET_KEY);
       })
       .then((token) => {
-        res.cookie('token', token, { httpOnly: true });
-        res.json({ msg: 'login success ' });
+        res.cookie('token', token, { httpOnly: true }).redirect('/main.html');
       })
       .catch(next);
   } else {
@@ -90,11 +104,10 @@ router.post('/sign-up', (req, res) => {
       addUser(name, email, hashedPass, bio)
         .then((newUserData) => newUserData.rows[0])
         .then((userData) => {
-          const { id, name, bio } = userData;
-          return jwtString({ id, name, bio }, SECRET_KEY);
+          const { id } = userData;
+          return jwtString({ userID: id }, SECRET_KEY);
         }).then((token) => {
-          res.cookie('signedUp', token, { httpOnly: true });
-          res.json({ msg: 'sign up success ' });
+          res.cookie('token', token, { httpOnly: true }).redirect('/main.html');
         });
     });
 
