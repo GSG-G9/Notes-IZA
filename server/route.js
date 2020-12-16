@@ -60,7 +60,7 @@ router.post('/login', (req, res, next) => {
         return jwtString({ email }, process.env.SECRET_KEY);
       })
       .then((token) => {
-        res.cookie('token', token);
+        res.cookie('token', token, { httpOnly: true });
         res.json({ massage: 'login success ' });
       })
       .catch(next);
