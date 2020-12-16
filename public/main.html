@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>notes</h1>
-  <div class="test"></div>
-  <script src="js/dom.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>notes</h1>
+    <div class="notes-page" id="notes-page">
+      <div class="notes-div" id="notes-div"></div>
+      <!-- <button type="button" class="open-note-form" id="open-note-form"></button> -->
+      <form
+        action="/add-note"
+        method="POST"
+        class="add-note-form"
+        id="add-note-form"
+      >
+        <input
+          type="text"
+          name="noteHead"
+          autocomplete="off"
+          class="note-head"
+          id="note-head"
+        />
+        <input
+          type="text"
+          name="noteText"
+          autocomplete="off"
+          class="note-text"
+          id="note-text"
+        />
+        <button type="submit" class="add-note" id="add-note"></button>
+      </form>
+    </div>
+    <script src="js/dom.js"></script>
+  </body>
 </html>
