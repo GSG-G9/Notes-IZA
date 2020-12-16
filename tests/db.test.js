@@ -17,15 +17,7 @@ test('getNotes ',()=>{
     })
 });
 
-test('getNotes ',()=>{
-  return getNotes(1)
-  .then((data)=>{
-      expect(data.rowCount).toBe(2)
-  })
-  .catch(err =>{
-      console.log(err+ ' test err')
-  })
-});
+
 
 
 
