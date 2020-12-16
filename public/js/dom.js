@@ -1,4 +1,4 @@
-const div = document.querySelector('.test');
+/* const div = document.querySelector('.test');
 
 fetch(`/notes/${userID}`).then((res) => res.json()).then((results) => {
   if (results.status === 200) {
@@ -18,3 +18,4 @@ fetch('/addNote/${userID}', {
 }).then((res) => res.json()).then(() => {
 
 }).catch(console.log);
+*/

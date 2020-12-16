@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const { getNotes } = require('./database/queries/getNote');
 const { addNote } = require('./database/queries/addNote');
@@ -30,43 +31,37 @@ router.post('/addNote/:userID', (req, res, next) => {
 });
 
 // login route
+const { SECRET_KEY } = process.env;
+const jwtString = (payload, SECRET_KEY) => new Promise((resolve, reject) => {
+  jwt.sign(payload, SECRET_KEY, (err, token) => {
+    if (err) return reject(err);
+    return resolve(token);
+  });
+});
 router.post('/login', (req, res, next) => {
-  console.log(req.body);
-
   const { email, password } = req.body;
-  // const email = 'zeengen2002@gmail.com';
-  // const password = '12345577';
-  let hashedPassword = '';
-  console.log(hashedPassword);
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().alphanum().min(6).required(),
   });
   const result = schema.validate({ email, password });
   if (result.error === undefined) {
-    getHashedPassword(email)
-      .then((hashResult) => {
-        hashedPassword = hashResult;
-      }).then(() => bcrypt.genSalt(10))
-
-      .then((salt) => {
-        bcrypt.hash(password, salt)
-          .then((hash) => {
-            bcrypt.compare(hash, hashedPassword)
-              .then((compareResult) => {
-                console.log(compareResult);
-                if (compareResult) {
-                  getUser(email)
-                    .then(({ rows }) => res.status(200).json({
-                      data: rows,
-                      msg: 'success',
-                      status: 200,
-                    }));
-                } else {
-                  res.status(401).json('Password is incorrect');
-                }
-              });
-          });
+    getUser(email).then((resData) => {
+      if (resData.rowCount === 0) {
+        throw new Error('email not found');
+      } else {
+        return getHashedPassword(resData.rows[0].email);
+      }
+    }).then((resUserPassword) => bcrypt.compare(password, resUserPassword.rows[0].password))
+      .then((success) => {
+        if (!success) {
+          throw new Error('bad request');
+        }
+        return jwtString({ email }, process.env.SECRET_KEY);
+      })
+      .then((token) => {
+        res.cookie('token', token);
+        res.json({ massage: 'login success ' });
       })
       .catch(next);
   }
