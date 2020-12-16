@@ -86,15 +86,18 @@ router.post('/sign-up', (req, res) => {
     name, email, password, confirmedPassword, bio,
   });
   if (result.error === undefined) {
-    addUser(name, email, password, confirmedPassword, bio)
-      .then((newUserData) => newUserData.rows[0])
-      .then((userData) => {
-        const { id, name, bio } = userData;
-        return jwtString({ id, name, bio }, SECRET_KEY);
-      }).then((token) => {
-        res.cookie('signedUp', token, { httpOnly: true });
-        res.json({ msg: 'sign up success ' });
-      });
+    bcrypt.hash(password, 10).then((hashedPass) => {
+      addUser(name, email, hashedPass, bio)
+        .then((newUserData) => newUserData.rows[0])
+        .then((userData) => {
+          const { id, name, bio } = userData;
+          return jwtString({ id, name, bio }, SECRET_KEY);
+        }).then((token) => {
+          res.cookie('signedUp', token, { httpOnly: true });
+          res.json({ msg: 'sign up success ' });
+        });
+    });
+
     // redirect to notes page
   } else {
     res.json({ msg: 'invalid information!!' });
