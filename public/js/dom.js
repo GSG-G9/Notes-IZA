@@ -1,20 +1,19 @@
-const div = document.querySelector('.test');
+const loggincontainer = document.querySelector('.loggin-container');
+const signupcontainer = document.querySelector('.signup-container');
+const loginButton = document.getElementById('log-in');
 
-fetch(`/notes/${userID}`).then((res) => res.json()).then((results) => {
-  if (results.status === 200) {
-    const { data } = results;
-    div.textContent = data;
-    return;
-  }
-  throw new Error();
-}).catch(() => { div.textContent = 'No Data ...!'; });
+const openForm = () => {
+  console.log('open');
+  loggincontainer.style.display = 'none';
+  signupcontainer.style.display = 'flex';
+};
 
-fetch('/addNote/${userID}', {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  method: 'POST',
-  body: JSON.stringify(data),
-}).then((res) => res.json()).then(() => {
+// fetch('/addNote/${userID}', {
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   method: 'POST',
+//   body: JSON.stringify(data),
+// }).then((res) => res.json()).then(() => {
 
-}).catch(console.log);
+// }).catch(console.log);

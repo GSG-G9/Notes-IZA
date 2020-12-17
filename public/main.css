@@ -1,0 +1,62 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+h1{
+text-align: center;
+}
+
+.note-div{
+  width: 90%;
+  height: 300px;
+
+  margin: 10px;
+  float: left;
+  }
+
+  .note-div.headerpara{
+    font-size: 30px;
+  }
+  .note-div.contentpara{
+    font-size: 20px;
+  }
+  .display_user{
+    text-align: center;
+  }
+  #display-name{
+    font-size: 30px;
+    font-weight: bold;
+  }
+  #display-bio{
+    font-size: 24px;
+    
+  }
+  .log-in{
+    padding: 15px 25px;
+    border-radius: 10px;
+    border-width: 0.1px;
+    font-weight: 700;
+  }
+  .add-note-form{
+    display: none;
+    flex-direction: column;
+    width: min(400px, 100% - 2vw);
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  input{
+    padding: 16px 32px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 2px 0.5px #ddd4d4;
+    font-size: 18px;
+  }
+  textarea{
+  
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 2px 0.5px #ddd4d4;
+    font-size: 18px;
+  }

@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>notes</h1>
-    <div class="notes-page" id="notes-page">
-      <div class="notes-div" id="notes-div"></div>
-      <!-- <button type="button" class="open-note-form" id="open-note-form"></button> -->
-      <form
-        action="/notes"
-        method="POST"
-        class="add-note-form"
-        id="add-note-form"
-      >
-        <input
-          type="text"
-          name="header"
-          autocomplete="off"
-          class="note-head"
-          id="note-head"
-        />
-        <input
-          type="text"
-          name="content"
-          autocomplete="off"
-          class="note-text"
-          id="note-text"
-        />
-        <button type="submit" class="add-note" id="add-note"></button>
-      </form>
-    </div>
-    <script src="js/dom.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main.css" />
+  <title>Document</title>
+</head>
+<body>
+  <h1>Notes-IZA</h1>
+  <div id="display-name" class="display_user">name</div>
+  <div id="display-bio" class="display_user">bio</div>
+  <div class="notes-page" id="notes-page">
+    <button type="button" class="log-in" id="create-new-note" name="signing" onclick="openForm()">
+      Create New Note
+    </button>
+    <button type="button" class="log-in" id="logout" name="logout">
+      log out
+    </button>
+    <!-- <button type="button" class="open-note-form" id="open-note-form"></button> -->
+    <form
+      action="/notes"
+      method="POST"
+      class="add-note-form"
+      id="add-note-form"
+    >
+      <input
+        type="text"
+        name="header"
+        autocomplete="off"
+        class="note-head"
+        id="note-head"
+      />
+      <textarea
+        type="text"
+        name="content"
+        autocomplete="off"
+        class="note-text"
+        id="note-text"
+        rows="15"
+        cols="30"
+      ></textarea>
+      <button type="submit"  class="log-in" id="add-note">Add note</button>
+    </form>
+    <div class="notes-div"  id="notes-div"><div  id= "container"class="container"></div></div>
+  </div>
+
+  
+
+  
+  <script src="js/main.js" ></script>
+</body>
 </html>

@@ -30,7 +30,7 @@
           <button type="submit" class="log-in" id="log-in" name="log-in">
             Log in
           </button>
-          <button type="button" class="signing" id="signing" name="signing">
+          <button type="button" class="signing" id="signing" name="signing" onclick="openForm()">
             Don't have an account?
           </button>
         </form>
@@ -55,7 +55,7 @@
             id="email"
           />
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="password"
             autocomplete="off"
@@ -63,12 +63,12 @@
             id="password"
           />
           <input
-            type="text"
-            name="confirmedPassword"
+            type="password"
+            name="confirmed-password"
             placeholder="confirm password"
             autocomplete="off"
             class="user-info"
-            id="confirmed-password"
+            id="confirmed-password:userID"
           />
           <input
             type="text"

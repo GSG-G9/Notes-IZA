@@ -11,6 +11,8 @@ const { addNote } = require('./database/queries/addNote');
 const { getUser } = require('./database/queries/getUser');
 const { addUser } = require('./database/queries/addUser');
 const { getHashedPassword } = require('./database/queries/getHashedPassword');
+const { displayUser } = require('./database/queries/displayUser');
+const { deleteNote } = require('./database/queries/deleteNote');
 
 const { SECRET_KEY } = process.env;
 const jwtString = (payload, SECRET_KEY) => new Promise((resolve, reject) => {
@@ -19,22 +21,7 @@ const jwtString = (payload, SECRET_KEY) => new Promise((resolve, reject) => {
     return resolve(token);
   });
 });
-// get notes for each user
-router.get('/notes/:userID', (req, res, next) => {
-  getNotes(req.params.userID)
-    .then((results) => res.json({
-      data: results.rows,
-      status: 200,
-      msg: 'success',
-    }))
-    .catch(next);
-});
-module.exports = router;
 
-// add note
-/* router.get('/note', (req, res, next) => {
-  res.send(readFile(join(__dirname, '..', '..', 'public', 'main.html')));
-}); */
 const varifyToken = (req, res, next) => {
   jwt.verify(req.cookies.token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
@@ -45,6 +32,34 @@ const varifyToken = (req, res, next) => {
     }
   });
 };
+
+// get notes for each user
+router.get('/notes', varifyToken, (req, res, next) => {
+  console.log(req.userID);
+  getNotes(req.userID)
+    .then((results) => res.json({
+      data: results.rows.length ? results.rows : 'no data',
+      status: 200,
+      msg: 'success',
+    }))
+    .catch(next);
+});
+
+// get user data
+router.get('/getUser', varifyToken, (req, res, next) => {
+  console.log(req.userID);
+  displayUser(req.userID)
+    .then((results) => res.json({
+      data: results.rows.length ? results.rows : 'no data',
+      status: 200,
+      msg: 'success',
+    }))
+    .catch(next);
+});
+// add note
+/* router.get('/note', (req, res, next) => {
+  res.send(readFile(join(__dirname, '..', '..', 'public', 'main.html')));
+}); */
 
 router.post('/notes', varifyToken, (req, res, next) => {
   addNote(req.body.header, req.body.content, req.userID)
@@ -118,10 +133,15 @@ router.post('/sign-up', (req, res) => {
 });
 
 // logout route
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   res.clearCookie('token').redirect('/');
 });
-
+// delete
+router.delete('/notes', varifyToken, (req, res, next) => {
+  console.log(`${req.body}and ${req.userID}`);
+  deleteNote(req.body.id, req.userID)
+    .then(() => res.redirect('/main.html')).catch(next);
+});
 // error handling
 router.use((err, req, res, next) => {
   console.log(err);
@@ -131,3 +151,4 @@ router.use((err, req, res, next) => {
     data: null,
   });
 });
+module.exports = router;
